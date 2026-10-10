@@ -1,0 +1,9 @@
+raw_data/
+raw_labels/
+processed_data/
+*.wav
+*.WAV
+*.csv
+.ipynb_checkpoints/
+__pycache__/
+.venv/
