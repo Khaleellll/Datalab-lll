@@ -1,0 +1,7 @@
+streamlit>=1.50
+plotly
+scikit-learn
+pandas
+numpy
+matplotlib
+soundfile
