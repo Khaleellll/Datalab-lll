@@ -26,6 +26,8 @@ akkoord van Khaleel.
   `docs/planning.md` zet elke lesweek naast de data; de kerstvakantie telt niet mee.
 - **Einddatum:** het project is af op vrijdag 29-01-2027 (lesweek 19).
 - **Tijd:** ieder teamlid werkt 4 uur per week aan het project.
+- **Aantal kaarten:** ieder teamlid krijgt per week hetzelfde aantal kaarten, meestal 3. Het
+  aantal mag per week verschillen, maar binnen een week is het voor iedereen gelijk.
 - **Deadlines:** een kaart krijgt een deadline om 23:30 Amsterdamse tijd. Dat is 22:30 UTC in de
   wintertijd en 21:30 UTC in de zomertijd.
 - **Vrijdag:** op vrijdag laten we Sam iets nieuws zien. Niet alles hoeft dan af te zijn, wel een
@@ -76,7 +78,8 @@ akkoord van Khaleel.
    - kaarten die al lang in Wachten op staan, zonder dat iemand ernaar vraagt;
    - besluiten van Sam die nergens als kaart staan;
    - achterstand op `docs/planning.md`: hoeveel werk ligt er nog, en haalt het team 29-01-2027 nog?
-   - leden op het bord die geen teamlid zijn. Meld dat als vraag, niet als fout.
+   - leden op het bord die geen teamlid zijn. Meld dat als vraag, niet als fout;
+   - een ongelijk aantal open kaarten per persoon in de To Do-lijsten.
 6. **De planning voor volgende week maken.**
    - **Bronnen:**
      - het blok van de volgende lesweek in `docs/planning.md`;
@@ -94,6 +97,10 @@ akkoord van Khaleel.
        README.
      - Kaarten die dezelfde bestanden raken, krijgt één persoon. Zo voorkom je mergeconflicten.
      - Houd de belasting per persoon gelijk: iedereen ongeveer 4 uur.
+     - Geef iedereen hetzelfde aantal kaarten (meestal 3). Is een taak te groot, splits hem dan in
+       kleinere kaarten binnen dezelfde rol, met dezelfde branch. Heeft iemand te weinig werk, voeg
+       dan werk uit zijn of haar eigen rol toe, bijvoorbeeld uit een volgende lesweek. Kaarten die
+       nog in To Do of In progress staan, tellen mee.
    - **Volgorde:** wat moet maandag vastliggen zodat anderen verder kunnen? Leg de afhankelijkheden
      vast, en zet de deadlines zo dat dat werk op tijd klaar is.
    - **Vrijdag:** kies minstens twee kaarten met iets wat je Sam kunt laten zien, zoals een grafiek,
@@ -137,6 +144,7 @@ akkoord van Khaleel.
    alleen het veld dat hij noemt. Verplaats, archiveer of rond niets af zonder dat hij erom vraagt.
 10. **Controleren.** Lees de lijsten opnieuw met `trelloReadCard`, actie `list_by_list`.
     - Staat elke nieuwe kaart in de juiste lijst, met de juiste deadline en checklist?
+    - Heeft iedereen deze week hetzelfde aantal kaarten?
     - Zijn de bestaande kaarten ongewijzigd, op de afgesproken wijzigingen na?
 11. **Afsluiten.** Geef in je antwoord:
     - een tabel per persoon met de nieuwe kaarten, hun deadline en de uren;
