@@ -30,13 +30,27 @@ Bord: https://trello.com/b/nBwBFtpd/bumbble-bee
 **Bron:** docs/planning.md lesweek 12; plan van aanpak hoofdstuk 6
 **Hangt af van:** <naam van een andere kaart, of "niets">
 **Buiten scope:** <wat er niet bij hoort>
-**Tijd:** ca. 4 uur
+**Tijd:** ca. 1,5 uur
 **Branch:** taak/xgboost-baseline
+**Reviewer:** Ahmed (GitHub: `AhmedBashabeeb`)
 ```
 
 Met een checklist **Acceptatiecriteria**: elk punt is iets wat je met een controle kunt aantonen.
 
-Overlegkaarten, zoals de afspraak met Sam, zijn niet voor deze skill bedoeld.
+Overlegkaarten, zoals de afspraak met Sam, en reviewkaarten (`Review: PR's van <naam>`) zijn niet
+voor deze skill bedoeld.
+
+## Reviewers
+
+Vast voor het hele project. De **Reviewer** op de kaart komt uit deze tabel:
+
+| Werk van | Reviewer | GitHub-naam reviewer |
+|---|---|---|
+| Khaleel | Gamal | `Gamal-alsa2026` |
+| Gamal | Ahmed | `AhmedBashabeeb` |
+| Ahmed | Tonna | `25154133` |
+| Tonna | Malak | `malakje` |
+| Malak | Khaleel | `Khaleellll` |
 
 ## Fase 1: plan (alleen lezen)
 
@@ -74,6 +88,8 @@ Overlegkaarten, zoals de afspraak met Sam, zijn niet voor deze skill bedoeld.
      binnen de grid search. De testset raak je niet aan, behalve in de eindevaluatie;
    - de branchnaam. Gebruik de **Branch** van de kaart; staat die er niet, kies dan
      `taak/korte-omschrijving`, met kleine letters en streepjes;
+   - de reviewer. Gebruik de **Reviewer** van de kaart; staat die er niet, neem dan de reviewer uit
+     de tabel bij Reviewers;
    - open vragen. Vragen over inhoud of over wat Sam wil, gaan naar de mens. Beslis die nooit zelf.
      Wijk je af van de normen in paragraaf 6.4 van het plan, zeg dat dan expliciet.
 
@@ -105,7 +121,8 @@ Overlegkaarten, zoals de afspraak met Sam, zijn niet voor deze skill bedoeld.
 9. **Afronden.**
    - Laat de mens de wijzigingen zien met `git diff`.
    - Commit pas na akkoord. Schrijf het bericht in het Nederlands, kort en beschrijvend.
-   - Push de branch en open een PR met het sjabloon uit `.github/pull_request_template.md`.
+   - Push de branch en open een PR met het sjabloon uit `.github/pull_request_template.md`. Voeg de
+     reviewer meteen toe: `gh pr create ... --reviewer <github-naam van de Reviewer>`.
    - Zet de kaart daarna op **For Review**, met een comment met de link naar de PR.
 
 ## Regels

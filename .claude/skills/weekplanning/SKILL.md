@@ -16,6 +16,17 @@ akkoord van Khaleel.
 
 - **Bord:** https://trello.com/b/nBwBFtpd/bumbble-bee
 - **Team:** Malak Alshehabi, Ahmed Bashabeeb, Khaleel Al-Aqel, Tonna Tekle en Gamal Al-Sabeei.
+- **Reviewers:** vast voor het hele project. Iedereen reviewt het werk van één teamgenoot en wordt
+  door één teamgenoot gereviewd:
+
+  | Werk van | Reviewer | GitHub-naam reviewer |
+  |---|---|---|
+  | Khaleel | Gamal | `Gamal-alsa2026` |
+  | Gamal | Ahmed | `AhmedBashabeeb` |
+  | Ahmed | Tonna | `25154133` |
+  | Tonna | Malak | `malakje` |
+  | Malak | Khaleel | `Khaleellll` |
+
 - **Akkoord:** Khaleel beheert het bord en geeft akkoord.
 - **Opdrachtgever:** dr. Sam Aerts. Zijn besluiten staan in `docs/besluiten-<jjjj-mm-dd>.md`.
 - **Lijsten:**
@@ -25,9 +36,10 @@ akkoord van Khaleel.
 - **Weken:** we tellen in lesweken. Lesweek 11 is de week van 16-11-2026. De tabel in
   `docs/planning.md` zet elke lesweek naast de data; de kerstvakantie telt niet mee.
 - **Einddatum:** het project is af op vrijdag 29-01-2027 (lesweek 19).
-- **Tijd:** ieder teamlid werkt 4 uur per week aan het project.
-- **Aantal kaarten:** ieder teamlid krijgt per week hetzelfde aantal kaarten, meestal 3. Het
-  aantal mag per week verschillen, maar binnen een week is het voor iedereen gelijk.
+- **Tijd:** ieder teamlid werkt 4 uur per week aan het project. Daarvan gaat ca. 0,5 uur naar de
+  reviewkaart en ca. 3,5 uur naar de andere kaarten.
+- **Aantal kaarten:** ieder teamlid krijgt per week hetzelfde aantal kaarten, meestal 3 plus de
+  reviewkaart. Het aantal mag per week verschillen, maar binnen een week is het voor iedereen gelijk.
 - **Deadlines:** een kaart krijgt een deadline om 23:30 Amsterdamse tijd. Dat is 22:30 UTC in de
   wintertijd en 21:30 UTC in de zomertijd.
 - **Vrijdag:** op vrijdag laten we Sam iets nieuws zien. Niet alles hoeft dan af te zijn, wel een
@@ -79,7 +91,10 @@ akkoord van Khaleel.
    - besluiten van Sam die nergens als kaart staan;
    - achterstand op `docs/planning.md`: hoeveel werk ligt er nog, en haalt het team 29-01-2027 nog?
    - leden op het bord die geen teamlid zijn. Meld dat als vraag, niet als fout;
-   - een ongelijk aantal open kaarten per persoon in de To Do-lijsten.
+   - een ongelijk aantal open kaarten per persoon in de To Do-lijsten;
+   - PR's zonder de afgesproken reviewer uit de tabel bij Reviewers (controleer met
+     `gh pr list --json number,author,reviewRequests,reviewDecision`), en PR's die al langer dan
+     twee dagen op een review wachten.
 6. **De planning voor volgende week maken.**
    - **Bronnen:**
      - het blok van de volgende lesweek in `docs/planning.md`;
@@ -101,6 +116,9 @@ akkoord van Khaleel.
        kleinere kaarten binnen dezelfde rol, met dezelfde branch. Heeft iemand te weinig werk, voeg
        dan werk uit zijn of haar eigen rol toe, bijvoorbeeld uit een volgende lesweek. Kaarten die
        nog in To Do of In progress staan, tellen mee.
+     - Iedereen krijgt elke week één **reviewkaart**: `Review: PR's van <naam>`, volgens de tabel
+       bij Reviewers. Die telt mee in het aantal kaarten en in de uren (ca. 0,5 uur).
+     - Elke werkkaart met een **Branch** krijgt een **Reviewer** volgens dezelfde tabel.
    - **Volgorde:** wat moet maandag vastliggen zodat anderen verder kunnen? Leg de afhankelijkheden
      vast, en zet de deadlines zo dat dat werk op tijd klaar is.
    - **Vrijdag:** kies minstens twee kaarten met iets wat je Sam kunt laten zien, zoals een grafiek,
@@ -131,20 +149,28 @@ akkoord van Khaleel.
      **Buiten scope:** <wat er niet bij hoort>
      **Tijd:** ca. <N> uur
      **Branch:** taak/<korte-omschrijving>
+     **Reviewer:** <naam> (GitHub: `<github-naam>`)
      ```
 
-     Laat **Branch** weg als het werk niet in de repo komt.
+     Laat **Branch** en **Reviewer** weg als het werk niet in de repo komt.
      Daarnaast krijgen ze een checklist **Acceptatiecriteria**: maak die met `trelloWriteChecklist`,
      actie `create`, en voeg de punten toe met `add_item` (`pos` 1, 2, 3...). Elk punt kun je met
      een controle aantonen.
    - **Overlegkaarten**, zoals de afspraak met Sam of een retrospective, krijgen één tot drie
      zinnen en geen checklist.
+   - **Reviewkaarten** heten `Review: PR's van <naam>` en komen in de To Do-lijst van de reviewer.
+     De beschrijving noemt de branches van die week, hoe je reviewt (Files changed lezen, een
+     notebook of script lokaal draaien, daarna Approve of Request changes) en **Tijd:** ca. 0,5 uur.
+     De checklist **Acceptatiecriteria** heeft vier punten: elke PR is bekeken; branchnaam, geen
+     data en notebooks zonder outputs zijn gecontroleerd; een notebook of script is lokaal gedraaid;
+     per PR is er een Approve of een Request changes met concrete comments.
    - **Kaarten in Wachten op** krijgen alleen een naam, zonder deadline.
 9. **Bestaande kaarten** pas je alleen aan als Khaleel die kaart in zijn akkoord noemt, en dan
    alleen het veld dat hij noemt. Verplaats, archiveer of rond niets af zonder dat hij erom vraagt.
 10. **Controleren.** Lees de lijsten opnieuw met `trelloReadCard`, actie `list_by_list`.
     - Staat elke nieuwe kaart in de juiste lijst, met de juiste deadline en checklist?
-    - Heeft iedereen deze week hetzelfde aantal kaarten?
+    - Heeft iedereen deze week hetzelfde aantal kaarten, met één reviewkaart?
+    - Heeft elke werkkaart met een **Branch** de juiste **Reviewer**?
     - Zijn de bestaande kaarten ongewijzigd, op de afgesproken wijzigingen na?
 11. **Afsluiten.** Geef in je antwoord:
     - een tabel per persoon met de nieuwe kaarten, hun deadline en de uren;
