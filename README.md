@@ -148,10 +148,10 @@ Meer details staan in het notebook en in [docs/Datakwaliteit hommelopnames.pdf](
 
 | Naam | Aandachtsgebied |
 |---|---|
-| Malak Alshehabi | Coördinatie en rapportage |
+| Malak Alshehabi | Literatuur en bronnen |
 | Ahmed Bashabeeb | Labelcontrole en geluidsanalyse |
 | Khaleel Al-Aqel | Data en features |
-| Tonna Tekle | Literatuur en bronnen |
+| Tonna Tekle | Coördinatie, rapportage en contact met de opdrachtgever |
 | Gamal Al-Sabeei | Publieke datasets en externe validatie |
 
 Begeleiding: Mike Huisman, Mirabai Vosteen.

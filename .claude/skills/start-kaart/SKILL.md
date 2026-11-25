@@ -48,9 +48,9 @@ Vast voor het hele project. De **Reviewer** op de kaart komt uit deze tabel:
 |---|---|---|
 | Khaleel | Gamal | `Gamal-alsa2026` |
 | Gamal | Ahmed | `AhmedBashabeeb` |
-| Ahmed | Tonna | `25154133` |
-| Tonna | Malak | `malakje` |
-| Malak | Khaleel | `Khaleellll` |
+| Ahmed | Malak | `malakje` |
+| Malak | Tonna | `25154133` |
+| Tonna | Khaleel | `Khaleellll` |
 
 ## Fase 1: plan (alleen lezen)
 
