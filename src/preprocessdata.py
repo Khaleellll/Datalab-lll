@@ -1,5 +1,4 @@
 import os
-import glob
 import numpy as np
 import pandas as pd
 import librosa
@@ -42,6 +41,21 @@ def parse_label_timestamp(ts_str):
     """
     parts = ts_str.rsplit(":", 1)
     return datetime.strptime(parts[0], "%Y-%m-%d %H:%M:%S")
+
+
+def find_wav_files(directory):
+    """
+    Return every WAV file in `directory` exactly once, whatever the case of the
+    extension (.WAV or .wav).
+
+    Globbing '*.WAV' and '*.wav' separately counts each file twice on Windows,
+    where glob matches case-insensitively; that doubled every row in the CSV.
+    """
+    return sorted(
+        os.path.join(directory, name)
+        for name in os.listdir(directory)
+        if name.lower().endswith(".wav")
+    )
 
 
 def load_label_lookup(csv_path):
@@ -114,8 +128,8 @@ def main():
     label_lookup = load_label_lookup(LABELS_CSV)
     print(f"Loaded {len(label_lookup)} labeled seconds from {LABELS_CSV}")
 
-    wav_files = sorted(glob.glob(os.path.join(RAW_DATA_DIR, "*.WAV")))
-    wav_files += sorted(glob.glob(os.path.join(RAW_DATA_DIR, "*.wav")))
+    wav_files = find_wav_files(RAW_DATA_DIR)
+    print(f"Found {len(wav_files)} WAV files in {RAW_DATA_DIR}")
 
     if not wav_files:
         print(f"No WAV files found in {RAW_DATA_DIR}")
@@ -160,6 +174,13 @@ def main():
         return
 
     df = pd.DataFrame(all_rows)
+
+    duplicates = df.duplicated(subset=["source_file", "start"]).sum()
+    if duplicates:
+        raise ValueError(
+            f"{duplicates} duplicate rows on (source_file, start); CSV not written."
+        )
+
     df.to_csv(OUTPUT_CSV, index=False)
 
     labeled = df["label"].notna().sum()
