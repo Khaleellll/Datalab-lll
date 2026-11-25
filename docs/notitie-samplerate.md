@@ -51,6 +51,6 @@ Mediaan van de energie per seconde in de 384 kHz-opnames, in dB:
 3. **Optioneel: een apart experiment op de 384 kHz-opnames.** Bandenergie boven 8 kHz lijkt te helpen bij hommel tegenover ruis. Dat kunnen we alleen op deze 12 opnames testen, en we rapporteren het apart.
 4. **Rapporteer scores altijd per recorder** (CLAUDE.md, doel 3). Omdat recorder en dag samenvallen, zeggen die scores ook iets over de dag; dat noemen we als beperking.
 
-## Vraag voor Sam (via Malak)
+## Vraag voor Sam (via Tonna)
 
 - Met welke recorder neemt het lectoraat in de toekomst op? Als dat 384 kHz wordt, loont het om features boven 8 kHz mee te nemen, en dan willen we meer gelabelde 384 kHz-opnames.
