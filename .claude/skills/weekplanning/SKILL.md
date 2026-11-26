@@ -23,12 +23,16 @@ akkoord van Khaleel.
   |---|---|---|
   | Khaleel | Gamal | `Gamal-alsa2026` |
   | Gamal | Ahmed | `AhmedBashabeeb` |
-  | Ahmed | Tonna | `25154133` |
-  | Tonna | Malak | `malakje` |
-  | Malak | Khaleel | `Khaleellll` |
+  | Ahmed | Malak | `malakje` |
+  | Malak | Tonna | `25154133` |
+  | Tonna | Khaleel | `Khaleellll` |
 
+- **Rollen:** vast per persoon. Khaleel: data en features. Gamal: modellen. Ahmed: evaluatie en
+  analyse. Malak: literatuur en methode. Tonna: coördinatie, rapportage en contact met Sam (sinds
+  lesweek 12; daarvoor deed Malak dat).
 - **Akkoord:** Khaleel beheert het bord en geeft akkoord.
-- **Opdrachtgever:** dr. Sam Aerts. Zijn besluiten staan in `docs/besluiten-<jjjj-mm-dd>.md`.
+- **Opdrachtgever:** dr. Sam Aerts. Het contact loopt via Tonna. Zijn besluiten staan in
+  `docs/besluiten-<jjjj-mm-dd>.md`.
 - **Lijsten:**
   - **Wachten op**: dingen die bij Sam of een ander liggen;
   - **To Do <naam>**: een eigen lijst per teamlid;
