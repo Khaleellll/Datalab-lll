@@ -19,7 +19,7 @@ De getallen over de data komen uit het plan van aanpak, paragraaf 8.3: 3.716 gel
 | `max_depth` | De maximale diepte van één boom. Een diepere boom is ingewikkelder en gaat sneller overfitten (XGBoost developers, z.d.-a). Standaard 6. | Diepte is een van de parameters waarmee je de complexiteit van het model direct regelt (XGBoost developers, z.d.-b). Wij hebben weinig data, vooral weinig buzz en flight, dus we willen kijken of ondiepere bomen beter werken. |
 | `learning_rate` (eta) | Hoe groot de stap is die elke nieuwe boom zet. Een kleinere waarde maakt het leren voorzichtiger (XGBoost developers, z.d.-a). Standaard 0,3. | Shrinkage verkleint de invloed van elke losse boom en laat ruimte voor latere bomen (Chen & Guestrin, 2016). Een te grote stap kan dus te snel op de trainingsdata gaan passen. |
 | `n_estimators` | Het aantal bomen. | Hangt samen met de learning rate: een kleinere learning rate heeft meer bomen nodig (XGBoost developers, z.d.-b; Chen & Guestrin, 2016). Daarom tunen we ze samen. |
-| `subsample` | Welk deel van de rijen elke boom ziet. 0,7 betekent dat elke boom een willekeurige 70% van de training gebruikt (XGBoost developers, z.d.-a). Standaard 1. | Friedman (2002) liet zien dat het trekken van een willekeurige deelset per stap de nauwkeurigheid van gradient boosting kan verbeteren. Het maakt het model ook robuuster tegen ruis (XGBoost developers, z.d.-b). |
+| `subsample` | Welk deel van de rijen elke boom ziet. 0,7 betekent dat elke boom een willekeurige 70% van de training gebruikt (XGBoost developers, z.d.-a). Standaard 1. | Friedman (2002) liet zien dat het trekken van een willekeurige deelset per stap de nauwkeurigheid van gradient boosting kan verbeteren. Het model wordt er ook minder gevoelig door voor ruis (XGBoost developers, z.d.-b). |
 | `colsample_bytree` | Welk deel van de features elke boom mag gebruiken (XGBoost developers, z.d.-a). Standaard 1. | Volgens gebruikers van XGBoost helpt het weglaten van kolommen nog meer tegen overfitting dan het weglaten van rijen (Chen & Guestrin, 2016). Wij hebben 64 features, waarvan een deel sterk op elkaar lijkt (bijvoorbeeld de MFCC's). |
 | `min_child_weight` | Het minimale totale gewicht in een blad. Hoe hoger, hoe voorzichtiger het model splitst (XGBoost developers, z.d.-a). Standaard 1. | Ook een parameter die de complexiteit regelt (XGBoost developers, z.d.-b). Met weinig buzz- en flightvoorbeelden voorkomt een hogere waarde dat het model regels leert op een paar seconden. |
 | Klassengewichten | Hoe zwaar een fout per klasse meetelt bij het trainen. | Leeralgoritmen hebben moeite met klassen die ondervertegenwoordigd zijn (He & Garcia, 2009). Zie paragraaf 2. |
@@ -45,7 +45,7 @@ Van de gelabelde seconden is 93,3% ruis, 3,7% buzz en 3,0% flight (eigen bereken
 - Bereken de gewichten alleen op de trainingsdata, nooit op de testset.
 - Als we in twee stappen classificeren, verschilt het per stap. In stap 2 (buzz tegenover flight) zijn de klassen bijna even groot (139 tegen 111), dus daar maken gewichten weinig uit. In stap 1 (hommel tegenover ruis) is de verhouding ongeveer 1 op 14, en daar zijn ze wel belangrijk (eigen berekening).
 
-We draaien de grid search **met en zonder gewichten** en kijken wat beter werkt. Daarnaast helpt de keuze voor macro-F1 als metriek (paragraaf 4).
+We draaien de grid search **met en zonder gewichten** en kijken wat beter werkt. Ook helpt de keuze voor macro-F1 als metriek (paragraaf 4).
 
 ## 3. Waarden en grootte van het grid
 
@@ -64,7 +64,7 @@ We draaien de grid search **met en zonder gewichten** en kijken wat beter werkt.
 - Combinaties: 3 × 3 × 2 × 2 × 2 × 2 × 2 = **288**
 - Fits: 288 × 5 folds = **1.440**
 
-**Rekentijd.** Ik heb gemeten hoe lang één fit duurt op nepdata van dezelfde vorm als onze trainingsdata: 2.970 rijen, 64 features, 3 klassen in dezelfde verhouding. Dat gebeurde op een machine met 2 CPU-kernen, met `tree_method="hist"`.
+**Rekentijd.** Met een kort testscript is gemeten hoe lang één fit duurt op nepdata van dezelfde vorm als onze trainingsdata: 2.970 rijen, 64 features, 3 klassen in dezelfde verhouding. Dat gebeurde op een machine met 2 CPU-kernen, met `tree_method="hist"`.
 
 | `max_depth` | 200 bomen | 500 bomen |
 |---|---|---|
@@ -72,7 +72,7 @@ We draaien de grid search **met en zonder gewichten** en kijken wat beter werkt.
 | 5 | 1,4 s | 2,5 s |
 | 7 | 1,8 s | 2,8 s |
 
-Gemiddeld is dat 1,8 seconde per fit. Voor 1.440 fits wordt het ongeveer **44 minuten**. Colab kan trager zijn dan mijn meting, dus reken voor de zekerheid op **ongeveer 1,5 uur** (twee keer zo lang). Dit zijn schattingen:
+Gemiddeld is dat 1,8 seconde per fit. Voor 1.440 fits wordt het ongeveer **44 minuten**. Colab kan trager zijn dan deze meting, dus reken voor de zekerheid op **ongeveer 1,5 uur** (twee keer zo lang). Dit zijn schattingen:
 
 - De tijd groeit mee met het aantal features. Na lesweek 14 komen er features bij.
 - Controleer in Colab eerst hoeveel kernen je hebt met `os.cpu_count()` en draai één fit om de tijd te meten.
@@ -98,7 +98,7 @@ Het beste model kiezen we op **macro-F1**. Daarvoor zijn drie redenen:
 2. Bij ongelijke klassen zijn aparte evaluatiematen nodig (He & Garcia, 2009). Accuracy werkt bij ons niet: "altijd ruis" haalt al 93,3% (paragraaf 2).
 3. In de planning staat voor de modelkeuze in lesweek 15: macro-F1, precision van buzz en de spreiding over de folds.
 
-Daarnaast laat de grid search de **F1 per klasse** (buzz, flight, ruis) en de **precision van buzz** bijhouden. Doel 3 in `CLAUDE.md` vraagt namelijk om scores per klasse, niet alleen de totale accuracy. Deze scores gebruiken we niet om te kiezen, maar wel om te rapporteren. De precision van buzz is belangrijk, omdat de opdrachtgever voorbijvliegende hommels niet als bestuiving wil tellen (plan van aanpak, 6.4). Ook de standaardafwijking van macro-F1 over de folds slaan we op. In `GridSearchCV` kan dat met meerdere scorers en `refit="f1_macro"`.
+Ook houden we in de grid search de **F1 per klasse** (buzz, flight, ruis) en de **precision van buzz** bij. Doel 3 in `CLAUDE.md` vraagt namelijk om scores per klasse, niet alleen de totale accuracy. Deze scores gebruiken we niet om te kiezen, maar wel om te rapporteren. De precision van buzz is belangrijk, omdat de opdrachtgever voorbijvliegende hommels niet als bestuiving wil tellen (plan van aanpak, 6.4). Ook de standaardafwijking van macro-F1 over de folds slaan we op. In `GridSearchCV` kan dat met meerdere scorers en `refit="f1_macro"`.
 
 ### Scores per recorder
 
@@ -107,16 +107,16 @@ Doel 3 in `CLAUDE.md` vraagt ook om scores per recorder (16 kHz en 384 kHz). In 
 ### Splitsing
 
 - **Testset eerst apart.** De testset wordt per opname afgesplitst en blijft onaangeraakt tot lesweek 16 (afspraken in `docs/planning.md`). De grid search gebruikt alleen de rest.
-- **Binnen de grid search: `StratifiedGroupKFold` op `source_file`.** `CLAUDE.md` noemt `GroupKFold`, de planning `StratifiedGroupKFold`. Beide houden opnames bij elkaar; `StratifiedGroupKFold` probeert daarnaast de klassen eerlijk over de folds te verdelen, wat bij onze kleine klassen belangrijk is. Wij volgen de planning. Het is handig om `CLAUDE.md` daarop aan te passen (via een eigen PR).
+- **Binnen de grid search: `StratifiedGroupKFold` op `source_file`.** `CLAUDE.md` noemt `GroupKFold`, de planning `StratifiedGroupKFold`. Beide houden opnames bij elkaar. `StratifiedGroupKFold` probeert ook de klassen eerlijk over de folds te verdelen. Dat is belangrijk bij onze kleine klassen. Wij volgen de planning. Het is handig om `CLAUDE.md` daarop aan te passen (via een eigen PR).
 - **Uitleg:** Dezelfde groep komt nooit in twee folds terecht, en de verdeling van de klassen blijft per fold zo veel mogelijk gelijk (scikit-learn developers, z.d.-a). Zo komen seconden uit dezelfde opname nooit tegelijk in training en validatie. Als dat wel gebeurt, lekt informatie en lijkt het model beter dan het is (Kapoor & Narayanan, 2023).
 - **Vaste `random_state`** (bijvoorbeeld 42), zodat iedereen dezelfde folds krijgt.
 - Geef dezelfde splitter mee aan `GridSearchCV(cv=...)` en `groups=source_file` aan `.fit()`.
 
-**Let op bij het aantal folds.** De 139 seconden buzz zitten in een klein aantal opnames (plan van aanpak, 8.3). Zit er in een fold geen buzz of flight, dan is de F1 voor die klasse niet te berekenen en klopt de macro-F1 van die fold niet. Tel daarom eerst in hoeveel opnames buzz en flight voorkomen. Zijn dat er minder dan 5, gebruik dan 3 of 4 folds in plaats van 5. Pas dan ook het aantal fits in paragraaf 3 aan.
+**Let op bij het aantal folds.** De 139 seconden buzz en 111 seconden flight zitten misschien in maar een paar opnames. Zit er in een fold geen buzz of flight, dan is de F1 voor die klasse niet te berekenen en klopt de macro-F1 van die fold niet. Tel daarom eerst in hoeveel opnames buzz en flight voorkomen. Zijn dat er minder dan 5, gebruik dan 3 of 4 folds in plaats van 5. Pas dan ook het aantal fits in paragraaf 3 aan.
 
 ## Nog controleren (voor de reviewer)
 
-- **Rekentijd.** Die is gemeten op mijn eigen machine met nepdata. Gamal: graag één echte fit in Colab timen voordat het hele grid start.
+- **Rekentijd.** Die is gemeten op een testmachine met 2 kernen en nepdata. Gamal: graag één echte fit in Colab timen voordat het hele grid start.
 - **Eén of twee stappen.** Classificeren we met één model voor drie klassen, of in twee stappen? Bij twee stappen draaien we twee kleinere grid searches. Stap 2 heeft dan maar 250 rijen en is veel sneller.
 
 ## Bronnen
